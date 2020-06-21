@@ -1,0 +1,134 @@
+# MPG Regression
+
+## Multiple Linear Regression
+    - vl = vehicle length
+    - sa = spoiler angle
+    - vw = vehicle weight
+    - gc = ground clearance
+
+We perfomred a Multiple Linear Regression to try to link 
+mpg with the other variables.
+
+lm(formula = mpg ~ vl + vw + sa + gc + AWD, data = mechaCarMpg)
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -1.040e+02  1.585e+01  -6.559 5.08e-08 ***
+vl           6.267e+00  6.553e-01   9.563 2.60e-12 ***
+vw           1.245e-03  6.890e-04   1.807   0.0776 .  
+sa           6.877e-02  6.653e-02   1.034   0.3069    
+gc           3.546e+00  5.412e-01   6.551 5.21e-08 ***
+AWD         -3.411e+00  2.535e+00  -1.346   0.1852 
+
+The value Pr(>|t|), like the p-value, needs to be under 0.05 to show a significant impact.
+We can see that in this instance, only vl (vehicle length) and gc (ground clearance) have a
+significant impact on mpg. So the linear model could be written:
+        mpg = -0.0104 + 6.267*vl + 3.546*gc + e
+
+Multiple R-squared:  0.7149,	Adjusted R-squared:  0.6825 
+F-statistic: 22.07 on 5 and 44 DF,  p-value: 5.35e-11
+
+R-squared at 0.7 and the p-value minimal show that this model is strong, and can predict
+mpg of MechaCar prototypes effectively.
+
+The slope of the linear model is not considered to be zero. There's definite corelation 
+between mpg, and vl and gc.
+
+The Pearson Corelation Coefficients, 0.6 for vl and 0.3 for gc, confirm this result.
+
+## Linear Regression
+As both vl and gc have an impact on mpg, we performed a single linear regression on each of them
+so we can visualize both correlations, which we can't do for a multiple linear regression.
+
+
+# Suspension Coil Summary
+
+## Summary - missing var and sdv, but showing quartiles
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1452    1498    1500    1499    1501    1542 
+
+## Summary Statisctics Table
+    statsLabels        statsResults
+                     
+    1 min                       1452   
+    2 max                       1542   
+    3 mean                      1499   
+    4 median                    1500   
+    5 variance                  62.3 
+    6 standard deviation        7.89
+
+The summary statisctics, as well as the density plot, show that the distribution is almost normal,
+with close mean and median.  The 1st quartile is high, almost at mean value, and the 3rd quartile is low,
+just over the median, hence the low standard deviation. These results can be seen in the boxplot, which
+shows a low variance (calculated at 62.3 pounds per inch) - under the limit of 100 needed by
+the design specification. We can then asure that the current manufacturingh data meets this criteria.
+
+
+# Suspension Coil T-Test
+
+We notice similarities between the plots of the whole population and a sample of 50. We then performed
+a one-sample T-Test:
+
+        One Sample t-test
+
+        data:  samples$PSI
+        t = -0.28533, df = 49, p-value = 0.7766
+        alternative hypothesis: true mean is not equal to 1498.78
+        95 percent confidence interval:
+        1496.367 1500.593
+        sample estimates:
+        mean of x 
+        1498.48 
+
+The p-value is 0.7766, far above the significance level of 0.05. So we can't reject the Null hypothesis.     
+Hence there's no statistical difference between both means.
+
+We get the same result if we do a T-test with a smaller sample of 30.
+
+The suspension coil’s pound-per-inch results are statistically similar from the mean population results
+of 1,500 pounds per inch.
+
+
+# Design our Own Study
+
+We've been tasked with designing a study comparing the performance of the MechaCar prototype vehicle with
+other vehicles on the market.
+
+## numerical metrics of interest        
+        - fuel efficiency mpg
+        - max speed
+        - acceleration (seconds to 60mph)
+        - cost of vehicle (if not considered into price categories)
+
+For the numerical continuous values, we'll perform 2-samples T-test when comparing the population/sample of MechaCars
+with population/sample of market vehicles.
+
+Our main question is if there's statistical Difference between the 2 groups, and we hope to show that there will be 
+statistical difference, and that the MechaCar protoypes will get better/higher metrics, i.e. a higher mpg,
+a higher max speed, a lower acceleration.
+
+The Null Hypothesis is that there's no statistical difference - meaning that the MechaCar prototypes can't be proven to have 
+better (or worse) metrics. And the Alternative Hypothesis is that there's a statistical difference.
+
+
+## categorical metrics of intererst        
+        - cost of vehicle (could be considered categorical if we consider price categories)
+        - security features
+        - style (color)
+        - options (gps)
+
+For the categorical metrics, we'll perform Chi-squared tests where we compare frequency data.
+
+The Null Hypothesis says that there's no statistical difference between the 2 groups (population or samples, depending on the
+metrics). The Alternative Hypothesis (that we hope to prove) says that there's a statistical difference.
+
+When comparing price categories, we may have to compare different groups depending on the same engine, style,
+features, options, etc... so we may perform ANOVA tests among these different grouips as well.
+
+
+
+
+
+
+
+
